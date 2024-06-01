@@ -36,6 +36,35 @@ constraint fkinventario_baus foreign key (fkinventario) references inventario(fk
 nome varchar(45)
 );
 
+create table Quiz(
+id int primary key auto_increment,
+genero varchar(45)
+);
+
+create table Perguntas(
+idPergunta int,
+fkQuiz int,
+constraint pk_perguntas primary key(idPergunta, fkQuiz),
+constraint fkQuiz_Perguntas foreign key (fkQuiz) references Quiz(id),
+Pergunta TEXT,
+Resposta_correta TEXT,
+Resposta_falsa TEXT
+);
+
+create table Resposta_usuario(
+id int,
+fkusuario int,
+fkpergunta int,
+fkquiz int,
+constraint pk_resposta_usuario primary key(id, fkusuario, fkpergunta, fkquiz),
+constraint fk_usuario_resposta_usuario foreign key(fkusuario) references Usuario(id),
+constraint fk_pergunta_resposta_usuario foreign key(fkpergunta) references Perguntas(idPergunta),
+constraint fk_quiz_resposta_usuario foreign key(fkquiz) references Quiz(id),
+resposta_correta char(3),
+constraint resposta_correta_usuario check (resposta_correta in ('Sim', 'Nao'))
+);
+
+
 create table loja_baus(
 idBau int primary key auto_increment,
 preco int,
@@ -98,18 +127,18 @@ insert into estoque_itens (iditem, nome, raridade, preco) values
 (30,'Escudo de Doran', 'comum', 150);
 
 insert into url_img_itens values
-(1,'"./assets/img-icons/lol-icons/Winter%27s_Approach_item_HD.webp"'),
+(1,'"./assets/img-icons/lol-icons/Winters_Approach_item_HD.webp"'),
 (2,'"./assets/img-icons/lol-icons/Steraks_Gage_item_HD.webp"'),
-(3,'"./assets/img-icons/lol-icons/Seraph%27s_Embrace_item_HD.webp"'),
-(4,'"./assets/img-icons/lol-icons/Liandry%27s_Torment_item.webp"'),
-(5,'"./assets/img-icons/lol-icons/Guinsoo%27s_Rageblade_item_HD.webp"'),
+(3,'"./assets/img-icons/lol-icons/Seraphs_Embrace_item_HD.webp"'),
+(4,'"./assets/img-icons/lol-icons/Liandrys_Torment_item.webp"'),
+(5,'"./assets/img-icons/lol-icons/Guinsoos_Rageblade_item_HD.webp"'),
 (6,'"./assets/img-icons/lol-icons/Infinity_Edge_item_HD.webp"'),
 (7,'"./assets/img-icons/lol-icons/Stormrazor_item_HD.webp"'),
 (8,'"./assets/img-icons/lol-icons/Blade_of_the_Ruined_King_item_HD.webp"'),
-(9,'"./assets/img-icons/lol-icons/Zhonya%27s_Hourglass_item_HD.webp"'),
+(9,'"./assets/img-icons/lol-icons/Zhonyas_Hourglass_item_HD.webp"'),
 (10,'"./assets/img-icons/lol-icons/Trinity_Force_item_HD.webp"'),
 (11,'"./assets/img-icons/lol-icons/Hextech_Alternator_item_HD.webp"'),
-(12,'"./assets/img-icons/lol-icons/Seeker%27s_Armguard_item_HD.webp"'),
+(12,'"./assets/img-icons/lol-icons/Seekers_Armguard_item_HD.webp"'),
 (13,'"./assets/img-icons/lol-icons/Oblivion_Orb_item_HD.webp"'),
 (14,'"./assets/img-icons/lol-icons/Vampiric_Scepter_item.webp"'),
 (15,'"./assets/img-icons/lol-icons/Verdant_Barrier_item_HD.webp"'),
