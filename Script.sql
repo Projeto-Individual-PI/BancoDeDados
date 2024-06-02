@@ -11,29 +11,8 @@ senha varchar(105)
 create table inventario (
 fkusuario int primary key,
 constraint fkusuario foreign key (fkusuario) 
-references Usuario(id),
+references usuario(id),
 creditos int
-);
-
-create table itens_inventario (
-iditem int,
-fkinventario int,
-fkitem int,
-constraint fkitem foreign key (fkitem) references estoque_itens(iditem),
-constraint pkcomposta primary key (iditem, fkinventario, fkitem),
-constraint fkinventario foreign key (fkinventario) references
-inventario(fkusuario)
-);
-
-
-create table baus_inventario(
-idbau int,
-fkbau int,
-fkinventario int,
-constraint pkcomposta primary key (idbau, fkinventario, fkbau),
-constraint fkbau foreign key (fkbau) references loja_baus(idbau),
-constraint fkinventario_baus foreign key (fkinventario) references inventario(fkusuario),
-nome varchar(45)
 );
 
 create table quiz(
@@ -45,21 +24,21 @@ create table perguntas(
 idPergunta int,
 fkQuiz int,
 constraint pk_perguntas primary key(idPergunta, fkQuiz),
-constraint fkQuiz_Perguntas foreign key (fkQuiz) references Quiz(id),
+constraint fkQuiz_Perguntas foreign key (fkQuiz) references quiz(id),
 Pergunta TEXT,
 Resposta_correta TEXT,
 Resposta_falsa TEXT
 );
 
 Select* from quiz 
-join Perguntas on quiz.id = Perguntas.fkQuiz;
+join perguntas on quiz.id = Perguntas.fkQuiz;
 
 create table pontuacao_usuario(
 id int,
 fkusuario int,
 fkquiz int,
 constraint pk_resposta_usuario primary key(id, fkusuario, fkquiz),
-constraint fk_usuario_resposta_usuario foreign key(fkusuario) references Usuario(id),
+constraint fk_usuario_resposta_usuario foreign key(fkusuario) references usuario(id),
 constraint fk_quiz_resposta_usuario foreign key(fkquiz) references Quiz(id),
 Pontuacao int
 );
@@ -76,12 +55,33 @@ porcent_epico int,
 porcent_lendario int
 );
 
+create table baus_inventario(
+idbau int,
+fkbau int,
+fkinventario int,
+constraint pkcomposta primary key (idbau, fkinventario, fkbau),
+constraint fkbau foreign key (fkbau) references loja_baus(idbau),
+constraint fkinventario_baus foreign key (fkinventario) references inventario(fkusuario),
+nome varchar(45)
+);
+
 create table estoque_itens(
 iditem int primary key auto_increment,
 nome varchar(45),
 raridade varchar(45),
 preco int
 );
+
+create table itens_inventario (
+iditem int,
+fkinventario int,
+fkitem int,
+constraint fkitem foreign key (fkitem) references estoque_itens(iditem),
+constraint pkcomposta primary key (iditem, fkinventario, fkitem),
+constraint fkinventario foreign key (fkinventario) references
+inventario(fkusuario)
+);
+
 
 create table url_img_itens(
 fkitem int primary key,
@@ -103,7 +103,7 @@ insert into quiz (genero) values
 ('Corrida')
 ;
 
-insert into Perguntas values
+insert into perguntas values
 (1, 1, 'Qual é o personagem principal de "Call of Duty"?', 'Captain Price', 'Lara Croft'),
 (2, 1, 'Em que ano foi lançado "Fortnite"?', '2017', '2015'),
 (3, 1, 'Qual é o objetivo principal em "Fortnite"?', 'Ser o último sobrevivente', 'Completar missões'),
