@@ -1,21 +1,21 @@
 create database Projeto_Pessoal_Pi;
 use Projeto_Pessoal_Pi;
 
-create table Usuario (
+create table usuario (
 id int primary key auto_increment,
 usuario varchar(45),
 email varchar(105),
 senha varchar(105)
 );
 
-create table Inventario (
+create table inventario (
 fkusuario int primary key,
 constraint fkusuario foreign key (fkusuario) 
 references Usuario(id),
 creditos int
 );
 
-create table Itens_inventario (
+create table itens_inventario (
 iditem int,
 fkinventario int,
 fkitem int,
@@ -36,12 +36,12 @@ constraint fkinventario_baus foreign key (fkinventario) references inventario(fk
 nome varchar(45)
 );
 
-create table Quiz(
+create table quiz(
 id int primary key auto_increment,
 genero varchar(45)
 );
 
-create table Perguntas(
+create table perguntas(
 idPergunta int,
 fkQuiz int,
 constraint pk_perguntas primary key(idPergunta, fkQuiz),
@@ -51,17 +51,17 @@ Resposta_correta TEXT,
 Resposta_falsa TEXT
 );
 
-create table Resposta_usuario(
+Select* from quiz 
+join Perguntas on quiz.id = Perguntas.fkQuiz;
+
+create table pontuacao_usuario(
 id int,
 fkusuario int,
-fkpergunta int,
 fkquiz int,
-constraint pk_resposta_usuario primary key(id, fkusuario, fkpergunta, fkquiz),
+constraint pk_resposta_usuario primary key(id, fkusuario, fkquiz),
 constraint fk_usuario_resposta_usuario foreign key(fkusuario) references Usuario(id),
-constraint fk_pergunta_resposta_usuario foreign key(fkpergunta) references Perguntas(idPergunta),
 constraint fk_quiz_resposta_usuario foreign key(fkquiz) references Quiz(id),
-resposta_correta char(3),
-constraint resposta_correta_usuario check (resposta_correta in ('Sim', 'Nao'))
+Pontuacao int
 );
 
 
@@ -88,6 +88,52 @@ fkitem int primary key,
 constraint fkitem_url_img foreign key(fkitem) references estoque_itens(iditem),
 url text
 );
+
+
+insert into quiz (genero) values
+('Ação'),
+('Esportes'),
+('Aventura'),
+('Battle_royale'),
+('MOBA'),
+('RPG'),
+('MMORPG'),
+('FPS'),
+('Simulação'),
+('Corrida')
+;
+
+insert into Perguntas values
+(1, 1, 'Qual é o personagem principal de "Call of Duty"?', 'Captain Price', 'Lara Croft'),
+(2, 1, 'Em que ano foi lançado "Fortnite"?', '2017', '2015'),
+(3, 1, 'Qual é o objetivo principal em "Fortnite"?', 'Ser o último sobrevivente', 'Completar missões'),
+(1, 2, 'Qual é o jogo de futebol mais popular?', 'FIFA', 'PES'),
+(2, 2, 'Qual equipe venceu a NBA em 2020?', 'Los Angeles Lakers', 'Miami Heat'),
+(3, 2, 'Qual jogador é capa do FIFA 21?', 'Kylian Mbappé', 'Lionel Messi'),
+(1, 3, 'Quem é o protagonista de "The Legend of Zelda"?', 'Link', 'Zelda'),
+(2, 3, 'Qual desenvolvedora criou "Uncharted"?', 'Naughty Dog', 'Ubisoft'),
+(3, 3, 'Em qual continente se passa "The Legend of Zelda: Breath of the Wild"?', 'Hyrule', 'Tamriel'),
+(1, 4, 'Qual foi o primeiro Battle Royale popular?', 'PUBG', 'Apex Legends'),
+(2, 4, 'Quantos jogadores participam de uma partida de "Apex Legends"?', '60', '100'),
+(3, 4, 'Qual é o objetivo principal em um jogo Battle Royale?', 'Ser o último sobrevivente', 'Capturar a bandeira'),
+(1, 5, 'Qual é o MOBA mais jogado no mundo?', 'League of Legends', 'Smite'),
+(2, 5, 'Qual é a principal função dos "minions" em MOBAs?', 'Ajudar a destruir torres inimigas', 'Atacar diretamente os heróis inimigos'),
+(3, 5, 'Quantas lanes (faixas) geralmente existem em um mapa de MOBA?', '3', '4'),
+(1, 6, 'Quem é o protagonista de "The Witcher"?', 'Geralt de Rivia', 'Arthur Morgan'),
+(2, 6, 'Qual RPG é conhecido por sua dificuldade extrema?', 'Dark Souls', 'Final Fantasy'),
+(3, 6, 'Em qual RPG você pode encontrar a cidade de Midgar?', 'Final Fantasy VII', 'The Elder Scrolls V: Skyrim'),
+(1, 7, 'Qual é o MMORPG mais famoso da Blizzard?', 'World of Warcraft', 'Diablo III'),
+(2, 7, 'Em qual MMORPG você pode jogar como uma classe chamada "Necromancer"?', 'Guild Wars 2', 'World of Warcraft'),
+(3, 7, 'Qual é a principal moeda de troca em "World of Warcraft"?', 'Gold', 'Silver'),
+(1, 8, 'Qual é o objetivo principal em "Valorant"?', 'Plantar/desarmar a spike', 'Capturar a bandeira'),
+(2, 8, 'Qual personagem de "Overwatch" é um gorila cientista?', 'Winston', 'Reinhardt'),
+(3, 8, 'Qual jogo é famoso pelo modo "Zombies"?', 'Call of Duty', 'Battlefield'),
+(1, 9, 'Qual é o simulador de vida mais popular?', 'The Sims', 'Second Life'),
+(2, 9, 'Qual jogo de simulação permite gerenciar uma cidade?', 'SimCity', 'RollerCoaster Tycoon'),
+(3, 9, 'Em "The Sims", como se chama a moeda do jogo?', 'Simoleons', 'Gold'),
+(1, 10, 'Qual é o mascote do jogo "Mario Kart"?', 'Mario', 'Sonic'),
+(2, 10, 'Qual série de jogos de corrida é conhecida por seu realismo?', 'Gran Turismo', 'Need for Speed'),
+(3, 10, 'Em "Mario Kart", qual item faz os outros jogadores perderem o controle?', 'Casco Azul', 'Banana');
 
 insert into loja_baus (preco, nome, porcent_comum, porcent_incomum, porcent_raro, porcent_epico, porcent_lendario) values
 (10, 'Baú Comum', 60, 25, 10, 4, 1),
@@ -159,6 +205,26 @@ insert into url_img_itens values
 (30,'"./assets/img-icons/lol-icons/Dorans_Shield_item.webp"');
 
 
+select *
+from itens_inventario
+join estoque_itens on fkitem = estoque_itens.iditem
+join usuario on usuario.id = itens_inventario.fkinventario 
+where Raridade = 'lendario';
+
+select usuario as 'Nome', count(fkinventario)as 'Qtd_itens'
+from itens_inventario
+join estoque_itens on fkitem = estoque_itens.iditem
+join usuario on usuario.id = itens_inventario.fkinventario 
+where Raridade = 'lendario' group by fkinventario, usuario order by Qtd_itens desc limit 5;
+
+
+
+select fkinventario, raridade as 'Raridade', count(raridade) as 'Qtd_itens' from itens_inventario
+join estoque_itens on estoque_itens.iditem = fkitem  where fkinventario = 12
+group by raridade, fkinventario order by field(Raridade, 'comum', 'incomum', 'raro', 'épico', 'lendário');
+
+select * from itens_inventario
+join estoque_itens on estoque_itens.iditem = fkitem  order by fkinventario;
 
 select * from estoque_itens left join url_img_itens on fkitem = iditem;
 select * from baus_inventario where fkinventario = 10;
