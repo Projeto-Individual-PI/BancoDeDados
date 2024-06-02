@@ -31,7 +31,7 @@ Resposta_falsa TEXT
 );
 
 Select* from quiz 
-join perguntas on quiz.id = Perguntas.fkQuiz;
+join perguntas on quiz.id = perguntas.fkQuiz;
 
 create table pontuacao_usuario(
 id int,
@@ -39,7 +39,7 @@ fkusuario int,
 fkquiz int,
 constraint pk_resposta_usuario primary key(id, fkusuario, fkquiz),
 constraint fk_usuario_resposta_usuario foreign key(fkusuario) references usuario(id),
-constraint fk_quiz_resposta_usuario foreign key(fkquiz) references Quiz(id),
+constraint fk_quiz_resposta_usuario foreign key(fkquiz) references quiz(id),
 Pontuacao int
 );
 
