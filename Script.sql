@@ -40,7 +40,8 @@ fkquiz int,
 constraint pk_resposta_usuario primary key(id, fkusuario, fkquiz),
 constraint fk_usuario_resposta_usuario foreign key(fkusuario) references usuario(id),
 constraint fk_quiz_resposta_usuario foreign key(fkquiz) references quiz(id),
-Pontuacao int
+Pontuacao int,
+data TIMESTAMP default CURRENT_TIMESTAMP
 );
 
 
